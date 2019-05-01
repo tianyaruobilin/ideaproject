@@ -1,0 +1,68 @@
+spring:
+  datasource:
+    username: admin
+    password: admin
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://localhost:1433;DatabaseName = NLW
+  application:
+    name: user_managerment
+  thymeleaf:
+    cache: false
+    mode: HTML
+  mvc:
+    throw-exception-if-no-handler-found: true   # 当找不到处理器时，抛出异常，上生产时再用吧
+  messages:
+    basename: messages
+    encoding: UTF-8
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    host: localhost
+    port: 6379
+    database: 0
+    password:
+    timeout: 1000
+
+#  resources:
+#    add-mappings: true # 静态资源不开启映射，一般用于前后端分离的应用
+
+server:
+  port: 8787
+mybatis:
+  type-aliases-package: com.nonglianwang.buchong.entity
+  mapper-locations: classpath:mybatis/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    jdbc-type-for-null: null  # 设置可以插入NULL
+pagehelper:
+  navigatePage: 5
+  reasonable: true
+  support-methods-arguments: false # 默认设置为false,如果为true,寻常查询只要有参数，也会走pageHelper
+  params: count=countsql
+#  default-count: true
+  helper-dialect: sqlserver
+logging:
+  level:
+    com.nonglianwang.buchong.dao: debug
+    org.springframework.data.redis.core.RedisTemplate: debug
+#    root: warn
+#    org.springframework.web.servlet.DispatcherServlet: debug
+
+# eureka.instance.perfer-ip-address: true
+#Hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 60000
+#
+#ribbon:
+#  ReadTimeout: 60000
+#  ConnectTimeout: 60000
+#  eureka:
+#    enable: true

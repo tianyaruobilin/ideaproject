@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrjob.hr_job.dao.FollowCaseMapper">
+  <resultMap id="BaseResultMap" type="com.hrjob.hr_job.entity.FollowCase">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="follow_case_id" jdbcType="INTEGER" property="followCaseId" />
+    <result column="signed_or_undeparture" jdbcType="BIT" property="signedOrUndeparture" />
+    <result column="fired_or_retribution" jdbcType="BIT" property="firedOrRetribution" />
+    <result column="illegal_discipline_badRecord" jdbcType="BIT" property="illegalDisciplineBadrecord" />
+    <result column="person_consume_id" jdbcType="VARCHAR" property="personConsumeId" />
+    <result column="is_disease" jdbcType="VARCHAR" property="isDisease" />
+  </resultMap>
+</mapper>

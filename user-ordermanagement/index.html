@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue||Element||订单管理</title>
+    <!--element start-->
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="element-ui.css">
+    <!-- 引入组件库 -->
+    <!--element end-->
+    <!-- custom css start-->
+    <style>
+    </style>
+    <!-- custom css end-->
+</head>
+<body>
+
+<div id="app">
+    <el-container>
+        <el-main>
+            <el-table
+                    ref="multipleTable"
+                    :data="tableData3"
+                    tooltip-effect="dark"
+                    style="width: 100%"
+                    show-summary
+                    :summary-method="getSummaries"
+                    @select="handleSelectionChange">
+                <el-table-column
+                        type="selection"
+                        width="55">
+                </el-table-column>  <!--复选框-->
+                <el-table-column
+                        label="订单编号">
+                    <template slot-scope="scope">{{ scope.row.ono }}</template>
+                </el-table-column>  <!--ono-->
+                <el-table-column
+                        prop="goodsname"
+                        label="商品名">
+                </el-table-column>  <!--商品名-->
+                <el-table-column
+                        prop="goodsprice"
+                        label="商品价格">
+                </el-table-column>  <!--商品价格-->
+                <el-table-column
+                        prop="addtime"
+                        label="添加时间">
+                </el-table-column>  <!--添加时间-->
+                <el-table-column
+                        prop="goodsweight"
+                        label="商品重量">
+                </el-table-column>  <!--商品重量-->
+                <el-table-column
+                        prop="goodsimg"
+                        label="商品图片">
+                </el-table-column>  <!--图片-->
+                <el-table-column
+                        prop="goodsdescript"
+                        label="描述"
+                        show-overflow-tooltip>
+                </el-table-column>  <!--描述-->
+                <el-table-column
+                        prop="totalPrice"
+                        label="合计">
+                </el-table-column>  <!--合计-->
+            </el-table>
+            <div style="margin-top: 20px">
+                <el-button @click="deleteSelectedItem">删除所选</el-button>
+                <el-button @click="submitMultiSelect">提交订单</el-button>
+                <el-button @click="UpdateSelectedItem" disabled="disabled">修改选择商品重量</el-button>
+                <el-input
+                        v-model="search"
+                        placeholder="输入关键字搜索" style="display: inline-block; width: 20ch;"/>
+            </div>
+            <el-dialog title="修改商品重量"
+                       :visible.sync="dialogVisible"
+                       width="30%" center
+                       :before-close="handleClose">
+                <el-form ref="toEditData" label-position="left" label-width="200px"
+                         style="width: 100%; -webkit-box-sizing: content-box; -moz-box-sizing: content-box;box-sizing: content-box; padding: auto 5%;">
+                    <el-form-item label="请输入新的重量" prop="goodsweight">
+                        <el-input-number v-model="rowsdatas.goodsweight+1" :precision="2" :step="0.1"
+                                         :max="rowsdatas.goodsweight"></el-input-number>
+                    </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="updateState">提 交</el-button>
+                    </span>
+            </el-dialog>
+        </el-main>
+    </el-container>
+</div>
+
+<!--vue start-->
+<script src="vue.js"></script>
+<!--vue end-->
+<!--axios start-->
+<script src="axios.js"></script>
+<!--axios start-->
+<!--element start-->
+<script src="element-ui.js"></script>
+<!--element end-->
+
+<!-- custom script start -->
+<script>
+    var index = new Vue({
+        el: "#app",
+        data() {
+            return {
+                rowsdatas: {ono: undefined, goodsweight: undefined},
+                search: "",
+                tableData3: [
+                    {
+                        "ono": undefined,
+                        "goodsname": undefined,
+                        "goodsprice": undefined,
+                        "addtime": undefined,
+                        "goodsweight": undefined,
+                        "totalPrice": undefined,
+                        "goodsimg": undefined,
+                        "goodsuno": undefined,/*商家id*/
+                        "goodscategory": undefined,/*商品类目*/
+                        "goodsdescript": undefined
+                    }
+                ],
+                multipleSelection: [],
+                dialogVisible: false
+            }
+        },
+        methods: {
+            updateState() {
+                axios
+                    .post("http://localhost:8787/order/updateState", Object.assign({}, this.rowsdatas))
+                    .then(
+                        (response) => {
+                            if (response.data.result === "ok") {
+                                //修改成功//回显
+                                for (let tableData3Key in this.tableData3) {
+                                    if (tableData3Key.ono === this.rowsdatas.ono) {
+                                        tableData3Key.goodsweight = this.rowdatas.goodsweight
+                                        this.$message.success("修改成功")
+                                    }
+                                }
+                            }
+                            console.log("--------修改状态响应开始--------")
+                            console.log(response)
+                            console.log("--------修改状态响应结束--------")
+                        }
+                    )
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {
+                    });
+            },
+            /**
+             * @return {boolean}
+             */
+            submitMultiSelect() {    //提交所选订单（支持多选）
+                if (this.multipleSelection.length===1){
+                axios
+                    .post("http://localhost:8787/order/submitOrders", Object.assign([], this.multipleSelection))
+                    .then(
+                        (response) => {
+                            if (response.data.result === "ok") {
+                                // location.reload()
+                                for (let i = 0; i < this.tableData3.length; i++) {
+                                    for (let j = 0; j <this.multipleSelection.length; j++) {
+                                        if (this.tableData3[i].ono ===this.multipleSelection[0].ono) {
+                                            this.tableData3.splice(i,1)
+                                        }
+                                    }
+                                }
+                                this.$message.success("订单提交成功")
+                            } else {
+                                this.$message.error("网络错误")
+                            }
+                        }
+                    )}
+                else {
+                    this.$message.warning("请先选择至少一项")
+                    return false
+                }
+            },  //提交订单
+            /**
+             * @return {boolean}
+             */
+            UpdateSelectedItem() {
+                // this.$refs.multipleTable.toggleAllSelection();
+                // 不能多选！
+                if (this.multipleSelection.length !== 1) {
+                    this.$message.error("修改功能只能在选择一项时使用！")
+                    return false;
+                } else {
+                    this.dialogVisible = true
+                }
+            },  //修改商品的质量
+            deleteSelectedItem() {
+                console.log(Object.assign({}, this.multipleSelection))
+                axios
+                    .post("http://localhost:8787/order/batchdelete", Object.assign({}, this.multipleSelection))
+                    .then(
+                        (response) => {
+                            console.log("--------批量删除响应开始--------")
+                            console.log(response)
+                            console.log("--------批量删除响应结束--------")
+                        }
+                    )
+            },  //批量删除
+            handleSelectionChange(selection, row) { /*select 所有已选择的  row 当前选择的行*/
+                this.multipleSelection = selection;
+                this.rowsdatas = row
+            },  //点击checkbox事件
+            getSummaries: function (param) {
+                const {columns, data} = param;/*columns : 列; data: 数据*/
+                const sums = [];
+                columns.forEach((column, index) => {
+                    if (index === 0) { /*第一列*/
+                        sums[index] = '总价';
+                        return false;
+                    } else {
+                        if (index !== 8) {
+                            sums[index] = ""
+                        } else {
+                            const values = data.map(item => Number(item[column.property]));
+                            sums[index] = values.reduce((prev, curr) => {
+                                const value = Number(curr);
+                                if (!isNaN(value)) {
+                                    return prev + curr;
+                                } else {
+                                    return prev;
+                                }
+                            }, 0);
+                            sums[index] += ' 元';
+                        }
+                    }
+                });
+
+                return sums;
+            }   //合计
+        },
+        mounted() {
+            axios
+                .get("http://localhost:8787/order/getAll")
+                .then(
+                    (response) => {
+                        console.log(response)
+                        this.tableData3 = response.data.datas[0]
+                    }
+                )
+        }
+    })
+</script>
+<!-- custom script end -->
+</body>
+</html>

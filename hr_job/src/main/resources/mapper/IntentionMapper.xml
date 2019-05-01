@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrjob.hr_job.dao.IntentionMapper">
+  <resultMap id="BaseResultMap" type="com.hrjob.hr_job.entity.Intention">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="intention_id" jdbcType="INTEGER" property="intentionId" />
+    <result column="intention_name" jdbcType="VARCHAR" property="intentionName" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="apply_serial_number" jdbcType="VARCHAR" property="applySerialNumber" />
+    <result column="results_management_branch" jdbcType="VARCHAR" property="resultsManagementBranch" />
+    <result column="willing_adjust" jdbcType="BIT" property="willingAdjust" />
+    <result column="person_consume_id" jdbcType="VARCHAR" property="personConsumeId" />
+  </resultMap>
+</mapper>

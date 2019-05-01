@@ -1,0 +1,14 @@
+package com.rules
+
+import com.springbootruleenginee.springbootruleenginee.entity.Adress;
+import com.springbootruleenginee.springbootruleenginee.entity.AdressCheckResult;
+
+rule "Postcode should be filled with exactly 5 numbers"
+
+    when
+        address : Adress(postCode != null, postCode matches "([0-9]{5})")
+        checkResult : AdressCheckResult();
+    then
+        checkResult.setPostCodeResult(true);
+        System.out.println("规则中打印日志：校验通过!");
+end

@@ -1,0 +1,30 @@
+spring:
+  thymeleaf:
+    cache: false
+    mode: HTML
+  datasource:
+    url: jdbc:mysql://192.168.43.248:3307/rbac?autoReconnect=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    hikari:
+      read-only: false
+      connection-timeout: 30000 # 连接超时
+      idle-timeout: 600000 # 空闲时间超过，则释放连接
+      max-lifetime: 1800000  # 最大生命周期时间
+      maximum-pool-size: 15 # 连接池最大连接数
+      connection-test-query: SELECT 1 # 用来验证从连接池中取出的连接
+mybatis:
+  type-aliases-package: com.nonglianwang.core.dto
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    use-generated-keys: true
+server:
+  port: 8089
+
+
+logging:
+  level:
+    com.nonglianwang.core.dao: debug
+mapper:
+  before: false  # 设置为先查询后插入

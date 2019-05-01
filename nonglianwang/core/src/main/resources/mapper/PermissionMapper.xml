@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nonglianwang.core.dao.PermissionMapper">
+  <resultMap id="BaseResultMap" type="com.nonglianwang.core.domain.Permission">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="perms_id" jdbcType="INTEGER" property="permsId" />
+    <result column="perms_name" jdbcType="VARCHAR" property="permsName" />
+    <result column="resource_type" jdbcType="CHAR" property="resourceType" />
+    <result column="resource_path" jdbcType="VARCHAR" property="resourcePath" />
+    <result column="available" jdbcType="BIT" property="available" />
+  </resultMap>
+</mapper>

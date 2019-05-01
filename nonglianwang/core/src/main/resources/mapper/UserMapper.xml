@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nonglianwang.core.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.nonglianwang.core.domain.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_nick" jdbcType="VARCHAR" property="userNick" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_created_time" jdbcType="DATE" property="userCreatedTime" />
+    <result column="user_updated_time" jdbcType="DATE" property="userUpdatedTime" />
+    <result column="user_last_login_time" jdbcType="DATE" property="userLastLoginTime" />
+    <result column="user_status" jdbcType="CHAR" property="userStatus" />
+    <result column="user_others_status_comment" jdbcType="VARCHAR" property="userOthersStatusComment" />
+    <result column="user_other_extends" jdbcType="VARCHAR" property="userOtherExtends" />
+  </resultMap>
+</mapper>

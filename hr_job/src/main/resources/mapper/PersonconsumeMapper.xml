@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrjob.hr_job.dao.PersonconsumeMapper">
+  <resultMap id="BaseResultMap" type="com.hrjob.hr_job.entity.Personconsume">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="photo" jdbcType="BLOB" property="photo" />
+    <result column="borntime" jdbcType="VARCHAR" property="borntime" />
+    <result column="origin_of_student" jdbcType="VARCHAR" property="originOfStudent" />
+    <result column="nation" jdbcType="VARCHAR" property="nation" />
+    <result column="politics_status" jdbcType="VARCHAR" property="politicsStatus" />
+    <result column="marital_status" jdbcType="VARCHAR" property="maritalStatus" />
+    <result column="health_status" jdbcType="VARCHAR" property="healthStatus" />
+    <result column="height" jdbcType="VARCHAR" property="height" />
+    <result column="weight" jdbcType="VARCHAR" property="weight" />
+    <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
+    <result column="english_level" jdbcType="VARCHAR" property="englishLevel" />
+    <result column="english_test_score" jdbcType="VARCHAR" property="englishTestScore" />
+    <result column="other_foreign_language" jdbcType="VARCHAR" property="otherForeignLanguage" />
+    <result column="other_forengn_language_proficiency" jdbcType="VARCHAR" property="otherForengnLanguageProficiency" />
+    <result column="graduate_school" jdbcType="VARCHAR" property="graduateSchool" />
+    <result column="home_adress" jdbcType="VARCHAR" property="homeAdress" />
+    <result column="highest_degree" jdbcType="VARCHAR" property="highestDegree" />
+    <result column="official_academic_credentials" jdbcType="VARCHAR" property="officialAcademicCredentials" />
+    <result column="professional" jdbcType="VARCHAR" property="professional" />
+    <result column="is_student_cadres" jdbcType="BIT" property="isStudentCadres" />
+    <result column="school_contact" jdbcType="VARCHAR" property="schoolContact" />
+    <result column="home_phone" jdbcType="VARCHAR" property="homePhone" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="e_mail" jdbcType="VARCHAR" property="eMail" />
+    <result column="special_skills_and_awards" jdbcType="VARCHAR" property="specialSkillsAndAwards" />
+    <result column="school_position" jdbcType="VARCHAR" property="schoolPosition" />
+    <result column="training_situation" jdbcType="VARCHAR" property="trainingSituation" />
+    <result column="the_kind_of_work_suitable_for_me" jdbcType="VARCHAR" property="theKindOfWorkSuitableForMe" />
+    <result column="education_background" jdbcType="VARCHAR" property="educationBackground" />
+    <result column="members_of_the_family" jdbcType="VARCHAR" property="membersOfTheFamily" />
+    <result column="other_relatives_of_CCB" jdbcType="VARCHAR" property="otherRelativesOfCcb" />
+    <result column="work_experience" jdbcType="VARCHAR" property="workExperience" />
+    <result column="note_information" jdbcType="VARCHAR" property="noteInformation" />
+    <result column="result_determine" jdbcType="VARCHAR" property="resultDetermine" />
+    <result column="extension1" jdbcType="VARCHAR" property="extension1" />
+    <result column="extension2" jdbcType="VARCHAR" property="extension2" />
+    <result column="extension3" jdbcType="VARCHAR" property="extension3" />
+    <result column=" create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="person_consume_id" jdbcType="VARCHAR" property="personConsumeId" />
+  </resultMap>
+</mapper>

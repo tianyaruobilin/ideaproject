@@ -1,0 +1,19 @@
+spring:
+  thymeleaf:
+    cache: false
+  application:
+    name: sso
+  datasource:
+    password: 123456
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.172:3307/itoken-service-admin?useUnicode=true&character_set_server=utf8mb4&useSSL=false
+server:
+  port: 8899
+eureka:
+  client:
+    service-url:
+      defaultZone: http://server1:8761/eureka/
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.springcloudoauth2.itokenservicesso.controller.damain

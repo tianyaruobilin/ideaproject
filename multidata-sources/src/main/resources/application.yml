@@ -1,0 +1,14 @@
+# test1数据源配置
+spring:
+  datasource:
+    test1:
+      driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      jdbcUrl : jdbc:sqlserver://localhost:1433;database=user_0
+      username: admin
+      password: admin
+# test2数据源
+    test2:
+      driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      url: jdbc:sqlserver://localhost:1433;database=user_1
+      username: admin
+      password: admin

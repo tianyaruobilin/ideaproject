@@ -1,0 +1,35 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.hrjob.mybatis.MyMapper"/>
+            <property name="caseSensitive" value="true"/>
+        </plugin>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.43.248:3307/hr_job_consume"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.hrjob.hr_job.entity"
+                            targetProject="src/main/java"/>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources"/>
+
+        <javaClientGenerator targetPackage="com.hrjob.hr_job.dao"
+                             targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+        <table catalog="hr_job_consume" tableName="%">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+    </context>
+</generatorConfiguration>

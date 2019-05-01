@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nonglianwang.buchong.dao.UserManagementDao">
+
+    <sql id="BaseSql">
+        tb_user.uno,
+        tb_user.username,
+        tb_user.password,
+        tb_user.borntime,
+        tb_user.e_mail,
+        tb_user.sex,
+        tb_user.state
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.nonglianwang.buchong.entity.User">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="uno" jdbcType="VARCHAR" property="uno" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="borntime" jdbcType="DATE" property="borntime" />
+        <result column="e_mail" jdbcType="VARCHAR" property="eMail" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="state" jdbcType="VARCHAR" property="state" />
+<!--        <collection property="userRoleNames"  ofType="com.nonglianwang.buchong.entity.Role">
+            <id jdbcType="VARCHAR" property="rno" column="rno" javaType="java.lang.String"/>
+            <result javaType="java.lang.String" column="rname" property="rname" jdbcType="VARCHAR"/>
+        </collection>-->
+    </resultMap>
+
+    <update id="updateByPrimaryKeyVo" parameterType="com.nonglianwang.buchong.vo.User">
+        update tb_user
+        set
+            username=#{username,jdbcType=VARCHAR},
+            borntime=CONVERT(DATE,#{borntime,jdbcType=DATE},120),
+            sex=#{sex,jdbcType=VARCHAR},
+            state=#{state,jdbcType=VARCHAR},
+            e_mail=#{eMail,jdbcType=VARCHAR}
+
+        where uno=#{uno,jdbcType=VARCHAR}
+    </update>
+
+    <insert id="insertVo" parameterType="com.nonglianwang.buchong.vo.User">
+        insert into tb_user(uno,username,borntime,sex,e_mail,state )
+        values (#{uno,jdbcType=VARCHAR},#{username,jdbcType=VARCHAR},CONVERT(DATE,#{borntime,jdbcType=DATE},120),
+        #{sex,jdbcType=VARCHAR},#{eMail,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="search" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="BaseSql"/>
+        from tb_user left join tb_user_role on tb_user.uno=tb_user_role.uno
+                              left join tb_role on tb_user_role.rno=tb_role.rno
+        <where>
+            <if test="testKey.search!=null and testKey.search!=''">
+                tb_user.username like '%'+#{testKey.search,jdbcType=VARCHAR}+'%'
+                or tb_user.e_mail like '%'+#{testKey.search,jdbcType=VARCHAR}+'%'
+                or tb_user.borntime like '%'+#{testKey.search,jdbcType=VARCHAR}+'%'
+                or tb_user.sex like '%'+#{testKey.search,jdbcType=VARCHAR}+'%'
+                or tb_user.uno like '%'+#{testKey.search,jdbcType=VARCHAR}+'%'
+            </if>
+        </where>
+    </select>
+
+    <select id="selectRoleName" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT	tb_role.rname
+          FROM
+	    tb_role left join tb_user_role on tb_role.rno = tb_user_role.rno
+        where uno=#{uno}
+    </select>
+
+    <select id="customSelect" parameterType="com.nonglianwang.buchong.vo.User" resultMap="BaseResultMap">
+        select
+        <include refid="BaseSql"/>
+/*        tb_role.rname,
+        tb_role.rno*/
+
+        from tb_user
+        inner JOIN tb_user_role ON tb_user.uno= tb_user_role.uno
+        inner JOIN tb_role ON tb_role.rno= tb_user_role.rno
+        <where> tb_user.uno in (
+        SELECT
+        tb_user.uno
+        FROM
+        tb_user
+        left JOIN tb_user_role ON tb_user.uno= tb_user_role.uno
+        left JOIN tb_role ON tb_role.rno= tb_user_role.rno
+        <where>
+            <if test="uno!=null and uno!=''">
+                and tb_user.uno=#{uno}
+            </if>
+
+            <if test="username!=null and username!=''">
+                and tb_user.username=#{username}
+            </if>
+
+            <if test="borntime!=null and borntime!=''">
+                and tb_user.borntime=#{borntime}
+            </if>
+
+            <if test="eMail!=null and eMail!=''">
+                and tb_user.e_mail=#{eMail}
+            </if>
+
+            <if test="sex!=null and sex!=''">
+                and tb_user.sex=#{sex}
+            </if>
+
+            <if test="state!=null and state!=''">
+                and tb_user.state=#{state}
+            </if>
+
+            <if test="rname!=null and rname!=''">
+                and tb_role.rname=#{rname}
+            </if>
+        </where>
+        ) <if test="rname!=null and rname!=''">
+                and tb_role.rname=#{rname}
+          </if>
+        </where>
+    </select>
+</mapper>

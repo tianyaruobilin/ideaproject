@@ -1,0 +1,11 @@
+{
+  "name": "测试文档api",
+  "version": "0.1.0",
+  "description": "这只是一个测试的页面",
+  "title": "APIDOC测试",
+  "url": "http://localhost:8080/",
+  "sampleUrl": "Http://localhost:8080/",
+  "dependencies": {
+    
+  }
+}

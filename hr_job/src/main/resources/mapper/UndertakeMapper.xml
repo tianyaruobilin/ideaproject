@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrjob.hr_job.dao.UndertakeMapper">
+  <resultMap id="BaseResultMap" type="com.hrjob.hr_job.entity.Undertake">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="undertake_id" jdbcType="INTEGER" property="undertakeId" />
+    <result column="ack_truth" jdbcType="BIT" property="ackTruth" />
+    <result column="can_graduate_in_time_interpretation" jdbcType="BIT" property="canGraduateInTimeInterpretation" />
+    <result column="person_consume_id" jdbcType="VARCHAR" property="personConsumeId" />
+  </resultMap>
+</mapper>
